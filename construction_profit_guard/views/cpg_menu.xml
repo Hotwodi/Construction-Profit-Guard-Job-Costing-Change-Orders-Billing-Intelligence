@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="cpg_menu_root"
+              name="Construction Profit Guard"
+              sequence="10"
+              web_icon="construction_profit_guard,static/description/icon.png"/>
+
+    <!-- Submenus -->
+    <menuitem id="cpg_menu_projects"
+              name="Projects"
+              parent="cpg_menu_root"
+              sequence="10"
+              action="cpg_project_action"/>
+
+    <menuitem id="cpg_menu_cost_codes"
+              name="Cost Codes"
+              parent="cpg_menu_root"
+              sequence="20"
+              action="cpg_cost_code_action"/>
+
+    <menuitem id="cpg_menu_job_cost_entries"
+              name="Job Cost Entries"
+              parent="cpg_menu_root"
+              sequence="30"
+              action="cpg_job_cost_entry_action"/>
+
+    <menuitem id="cpg_menu_change_orders"
+              name="Change Orders"
+              parent="cpg_menu_root"
+              sequence="40"
+              action="cpg_change_order_action"/>
+
+    <menuitem id="cpg_menu_daily_site_logs"
+              name="Daily Site Logs"
+              parent="cpg_menu_root"
+              sequence="50"
+              action="cpg_daily_site_log_action"/>
+
+    <menuitem id="cpg_menu_progress_billing"
+              name="Progress Billing"
+              parent="cpg_menu_root"
+              sequence="60"
+              action="cpg_progress_billing_action"/>
+
+    <menuitem id="cpg_menu_subcontractor_compliance"
+              name="Subcontractor Compliance"
+              parent="cpg_menu_root"
+              sequence="70"
+              action="cpg_subcontractor_compliance_action"/>
+
+    <menuitem id="cpg_menu_commitments"
+              name="Commitments"
+              parent="cpg_menu_root"
+              sequence="80"
+              action="cpg_commitment_action"/>
+</odoo>

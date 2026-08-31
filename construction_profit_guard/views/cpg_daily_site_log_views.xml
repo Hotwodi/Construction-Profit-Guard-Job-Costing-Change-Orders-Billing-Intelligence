@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cpg_daily_site_log_view_tree" model="ir.ui.view">
+        <field name="name">cpg.daily.site.log.view.tree</field>
+        <field name="model">cpg.daily.site.log</field>
+        <field name="arch" type="xml">
+            <tree string="Daily Site Logs">
+                <field name="log_date"/>
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="weather"/>
+                <field name="temperature"/>
+                <field name="labor_count"/>
+                <field name="submitted_by"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cpg_daily_site_log_view_form" model="ir.ui.view">
+        <field name="name">cpg.daily.site.log.view.form</field>
+        <field name="model">cpg.daily.site.log</field>
+        <field name="arch" type="xml">
+            <form string="Daily Site Log">
+                <header>
+                    <button name="action_ai_detect_change_orders" type="object" string="AI Detect Change Orders" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="e.g. Daily Log - Jan 15, 2025"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="log_date"/>
+                            <field name="submitted_by"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="weather"/>
+                            <field name="temperature"/>
+                            <field name="labor_count"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Site Details" name="site_details">
+                            <group>
+                                <group string="Equipment &amp; Deliveries">
+                                    <field name="equipment_used" nolabel="1" colspan="2"/>
+                                </group>
+                                <group string="Deliveries">
+                                    <field name="deliveries" nolabel="1" colspan="2"/>
+                                </group>
+                                <group string="Blockers">
+                                    <field name="blockers" nolabel="1" colspan="2"/>
+                                </group>
+                                <group string="Safety Notes">
+                                    <field name="safety_notes" nolabel="1" colspan="2"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Photos" name="photos">
+                            <field name="photos" nolabel="1" colspan="2" widget="many2many_binary"/>
+                        </page>
+                        <page string="AI Flags" name="ai_flags">
+                            <group>
+                                <field name="ai_change_order_flags" nolabel="1" colspan="2"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="cpg_daily_site_log_view_search" model="ir.ui.view">
+        <field name="name">cpg.daily.site.log.view.search</field>
+        <field name="model">cpg.daily.site.log</field>
+        <field name="arch" type="xml">
+            <search string="Daily Site Logs">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="submitted_by"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_project" string="Project" context="{'group_by': 'project_id'}"/>
+                    <filter name="group_date" string="Date" context="{'group_by': 'log_date'}"/>
+                    <filter name="group_submitted" string="Submitted By" context="{'group_by': 'submitted_by'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="cpg_daily_site_log_action" model="ir.actions.act_window">
+        <field name="name">Daily Site Logs</field>
+        <field name="res_model">cpg.daily.site.log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="cpg_daily_site_log_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new daily site log
+            </p>
+        </field>
+    </record>
+</odoo>

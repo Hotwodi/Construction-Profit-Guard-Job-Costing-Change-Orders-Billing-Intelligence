@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cpg_cost_code_view_tree" model="ir.ui.view">
+        <field name="name">cpg.cost.code.view.tree</field>
+        <field name="model">cpg.cost.code</field>
+        <field name="arch" type="xml">
+            <tree string="Cost Codes">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="cost_type"/>
+                <field name="project_id"/>
+                <field name="budget_amount" sum="Total Budget"/>
+                <field name="committed_cost" sum="Total Committed"/>
+                <field name="actual_cost" sum="Total Actual"/>
+                <field name="variance" sum="Total Variance"/>
+                <field name="ai_overrun_risk" widget="progressbar"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cpg_cost_code_view_form" model="ir.ui.view">
+        <field name="name">cpg.cost.code.view.form</field>
+        <field name="model">cpg.cost.code</field>
+        <field name="arch" type="xml">
+            <form string="Cost Code">
+                <header>
+                    <button name="action_ai_overrun_check" type="object" string="AI Overrun Check" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="e.g. Concrete Foundation"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="cost_type"/>
+                            <field name="project_id"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="budget_amount"/>
+                            <field name="committed_cost"/>
+                            <field name="actual_cost"/>
+                            <field name="variance"/>
+                            <field name="ai_overrun_risk" widget="progressbar"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Job Cost Entries" name="job_cost_entries">
+                            <field name="job_cost_entry_ids">
+                                <tree>
+                                    <field name="date"/>
+                                    <field name="name"/>
+                                    <field name="entry_type"/>
+                                    <field name="vendor_id"/>
+                                    <field name="amount" sum="Total"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Commitments" name="commitments">
+                            <field name="commitment_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="commitment_type"/>
+                                    <field name="vendor_id"/>
+                                    <field name="committed_amount" sum="Total"/>
+                                    <field name="incurred_to_date" sum="Total"/>
+                                    <field name="remaining" sum="Total"/>
+                                    <field name="state" widget="badge"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="cpg_cost_code_view_search" model="ir.ui.view">
+        <field name="name">cpg.cost.code.view.search</field>
+        <field name="model">cpg.cost.code</field>
+        <field name="arch" type="xml">
+            <search string="Cost Codes">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="project_id"/>
+                <filter name="filter_labor" string="Labor" domain="[('cost_type', '=', 'labor')]"/>
+                <filter name="filter_material" string="Material" domain="[('cost_type', '=', 'material')]"/>
+                <filter name="filter_equipment" string="Equipment" domain="[('cost_type', '=', 'equipment')]"/>
+                <filter name="filter_subcontractor" string="Subcontractor" domain="[('cost_type', '=', 'subcontractor')]"/>
+                <filter name="filter_overhead" string="Overhead" domain="[('cost_type', '=', 'overhead')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_type" string="Cost Type" context="{'group_by': 'cost_type'}"/>
+                    <filter name="group_project" string="Project" context="{'group_by': 'project_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="cpg_cost_code_action" model="ir.actions.act_window">
+        <field name="name">Cost Codes</field>
+        <field name="res_model">cpg.cost.code</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="cpg_cost_code_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new cost code
+            </p>
+        </field>
+    </record>
+</odoo>

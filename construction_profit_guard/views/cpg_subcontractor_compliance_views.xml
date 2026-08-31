@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cpg_subcontractor_compliance_view_tree" model="ir.ui.view">
+        <field name="name">cpg.subcontractor.compliance.view.tree</field>
+        <field name="model">cpg.subcontractor.compliance</field>
+        <field name="arch" type="xml">
+            <tree string="Subcontractor Compliance">
+                <field name="name"/>
+                <field name="vendor_id"/>
+                <field name="project_id"/>
+                <field name="insurance_type"/>
+                <field name="policy_number"/>
+                <field name="coverage_amount" sum="Total Coverage"/>
+                <field name="expiry_date"/>
+                <field name="co_expiry"/>
+                <field name="compliance_score" widget="progressbar"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cpg_subcontractor_compliance_view_form" model="ir.ui.view">
+        <field name="name">cpg.subcontractor.compliance.view.form</field>
+        <field name="model">cpg.subcontractor.compliance</field>
+        <field name="arch" type="xml">
+            <form string="Subcontractor Compliance">
+                <header>
+                    <button name="action_check_compliance" type="object" string="Check Compliance" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="compliant,expiring,expired,non_compliant"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="e.g. ABC Electrical - General Liability"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="vendor_id"/>
+                            <field name="insurance_type"/>
+                            <field name="policy_number"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="coverage_amount"/>
+                            <field name="expiry_date"/>
+                            <field name="co_expiry"/>
+                            <field name="compliance_score" widget="progressbar"/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="cpg_subcontractor_compliance_view_search" model="ir.ui.view">
+        <field name="name">cpg.subcontractor.compliance.view.search</field>
+        <field name="model">cpg.subcontractor.compliance</field>
+        <field name="arch" type="xml">
+            <search string="Subcontractor Compliance">
+                <field name="name"/>
+                <field name="vendor_id"/>
+                <field name="project_id"/>
+                <filter name="filter_compliant" string="Compliant" domain="[('state', '=', 'compliant')]"/>
+                <filter name="filter_expiring" string="Expiring" domain="[('state', '=', 'expiring')]"/>
+                <filter name="filter_expired" string="Expired" domain="[('state', '=', 'expired')]"/>
+                <filter name="filter_non_compliant" string="Non-Compliant" domain="[('state', '=', 'non_compliant')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_project" string="Project" context="{'group_by': 'project_id'}"/>
+                    <filter name="group_vendor" string="Subcontractor" context="{'group_by': 'vendor_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="cpg_subcontractor_compliance_action" model="ir.actions.act_window">
+        <field name="name">Subcontractor Compliance</field>
+        <field name="res_model">cpg.subcontractor.compliance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="cpg_subcontractor_compliance_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new subcontractor compliance record
+            </p>
+        </field>
+    </record>
+</odoo>

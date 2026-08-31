@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cpg_project_view_tree" model="ir.ui.view">
+        <field name="name">cpg.project.view.tree</field>
+        <field name="model">cpg.project</field>
+        <field name="arch" type="xml">
+            <tree string="Construction Projects">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="project_manager"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="contract_value" sum="Total Contract Value"/>
+                <field name="budget_amount" sum="Total Budget"/>
+                <field name="incurred_cost" sum="Total Incurred"/>
+                <field name="completion_pct" widget="progressbar"/>
+                <field name="ai_margin_forecast" widget="progressbar"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cpg_project_view_form" model="ir.ui.view">
+        <field name="name">cpg.project.view.form</field>
+        <field name="model">cpg.project</field>
+        <field name="arch" type="xml">
+            <form string="Construction Project">
+                <header>
+                    <button name="action_set_active" type="object" string="Activate" class="oe_highlight" invisible="state != 'planned'"/>
+                    <button name="action_set_on_hold" type="object" string="Put On Hold" invisible="state not in ['planned','active']"/>
+                    <button name="action_set_completed" type="object" string="Complete" class="oe_highlight" invisible="state != 'active'"/>
+                    <button name="action_set_closed" type="object" string="Close" invisible="state != 'completed'"/>
+                    <button name="action_ai_forecast" type="object" string="AI Forecast" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="planned,active,on_hold,completed,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_ai_forecast" icon="fa-magic">
+                            <div class="o_stat_info">
+                                <field name="ai_margin_forecast" widget="float" digits="(14,2)"/>
+                                <span class="o_stat_text">AI Margin %</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="e.g. Downtown Office Tower"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="partner_id"/>
+                            <field name="project_manager"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="completion_pct" widget="progressbar"/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Financials" name="financials">
+                            <group>
+                                <group string="Contract &amp; Budget">
+                                    <field name="contract_value"/>
+                                    <field name="budget_amount"/>
+                                    <field name="committed_cost"/>
+                                    <field name="incurred_cost"/>
+                                    <field name="billed_amount"/>
+                                </group>
+                                <group string="Margin Analysis">
+                                    <field name="actual_margin"/>
+                                    <field name="actual_margin_pct" widget="progressbar"/>
+                                    <field name="ai_margin_forecast" widget="progressbar"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Cost Codes" name="cost_codes">
+                            <field name="cost_code_ids">
+                                <tree>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="cost_type"/>
+                                    <field name="budget_amount" sum="Total Budget"/>
+                                    <field name="actual_cost" sum="Total Actual"/>
+                                    <field name="variance" sum="Total Variance"/>
+                                    <field name="ai_overrun_risk" widget="progressbar"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Job Cost Entries" name="job_cost_entries">
+                            <field name="job_cost_entry_ids">
+                                <tree>
+                                    <field name="date"/>
+                                    <field name="name"/>
+                                    <field name="cost_code_id"/>
+                                    <field name="entry_type"/>
+                                    <field name="vendor_id"/>
+                                    <field name="amount" sum="Total"/>
+                                    <field name="ai_categorized"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Change Orders" name="change_orders">
+                            <field name="change_order_ids">
+                                <tree>
+                                    <field name="co_number"/>
+                                    <field name="name"/>
+                                    <field name="estimated_cost" sum="Total Estimated"/>
+                                    <field name="approved_cost" sum="Total Approved"/>
+                                    <field name="status" widget="badge"/>
+                                    <field name="customer_approved"/>
+                                    <field name="approved_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Daily Site Logs" name="daily_site_logs">
+                            <field name="daily_site_log_ids">
+                                <tree>
+                                    <field name="log_date"/>
+                                    <field name="name"/>
+                                    <field name="weather"/>
+                                    <field name="labor_count"/>
+                                    <field name="submitted_by"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Progress Billings" name="progress_billings">
+                            <field name="progress_billing_ids">
+                                <tree>
+                                    <field name="billing_number"/>
+                                    <field name="period"/>
+                                    <field name="previous_billed" sum="Total Previous"/>
+                                    <field name="current_billed" sum="Total Current"/>
+                                    <field name="total_billed" sum="Grand Total"/>
+                                    <field name="net_due" sum="Total Net Due"/>
+                                    <field name="state" widget="badge"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Subcontractor Compliance" name="subcontractor_compliance">
+                            <field name="subcontractor_compliance_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="vendor_id"/>
+                                    <field name="insurance_type"/>
+                                    <field name="expiry_date"/>
+                                    <field name="compliance_score" widget="progressbar"/>
+                                    <field name="state" widget="badge"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Commitments" name="commitments">
+                            <field name="commitment_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="cost_code_id"/>
+                                    <field name="commitment_type"/>
+                                    <field name="vendor_id"/>
+                                    <field name="committed_amount" sum="Total Committed"/>
+                                    <field name="incurred_to_date" sum="Total Incurred"/>
+                                    <field name="remaining" sum="Total Remaining"/>
+                                    <field name="state" widget="badge"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="cpg_project_view_search" model="ir.ui.view">
+        <field name="name">cpg.project.view.search</field>
+        <field name="model">cpg.project</field>
+        <field name="arch" type="xml">
+            <search string="Construction Projects">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="partner_id"/>
+                <field name="project_manager"/>
+                <filter name="filter_active" string="Active" domain="[('state', '=', 'active')]"/>
+                <filter name="filter_planned" string="Planned" domain="[('state', '=', 'planned')]"/>
+                <filter name="filter_completed" string="Completed" domain="[('state', '=', 'completed')]"/>
+                <filter name="filter_on_hold" string="On Hold" domain="[('state', '=', 'on_hold')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_manager" string="Project Manager" context="{'group_by': 'project_manager'}"/>
+                    <filter name="group_partner" string="Customer" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="cpg_project_action" model="ir.actions.act_window">
+        <field name="name">Projects</field>
+        <field name="res_model">cpg.project</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="cpg_project_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new construction project
+            </p>
+        </field>
+    </record>
+</odoo>

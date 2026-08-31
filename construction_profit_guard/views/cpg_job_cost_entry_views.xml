@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cpg_job_cost_entry_view_tree" model="ir.ui.view">
+        <field name="name">cpg.job.cost.entry.view.tree</field>
+        <field name="model">cpg.job.cost.entry</field>
+        <field name="arch" type="xml">
+            <tree string="Job Cost Entries">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="cost_code_id"/>
+                <field name="entry_type"/>
+                <field name="vendor_id"/>
+                <field name="amount" sum="Total Amount"/>
+                <field name="ai_categorized"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cpg_job_cost_entry_view_form" model="ir.ui.view">
+        <field name="name">cpg.job.cost.entry.view.form</field>
+        <field name="model">cpg.job.cost.entry</field>
+        <field name="arch" type="xml">
+            <form string="Job Cost Entry">
+                <header>
+                    <button name="action_ai_categorize" type="object" string="AI Categorize" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="e.g. PO-2025-001"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="cost_code_id"/>
+                            <field name="entry_type"/>
+                            <field name="date"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="amount"/>
+                            <field name="vendor_id"/>
+                            <field name="ai_categorized"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1" colspan="2"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="cpg_job_cost_entry_view_search" model="ir.ui.view">
+        <field name="name">cpg.job.cost.entry.view.search</field>
+        <field name="model">cpg.job.cost.entry</field>
+        <field name="arch" type="xml">
+            <search string="Job Cost Entries">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="cost_code_id"/>
+                <field name="vendor_id"/>
+                <filter name="filter_po" string="Purchase Order" domain="[('entry_type', '=', 'po')]"/>
+                <filter name="filter_timesheet" string="Timesheet" domain="[('entry_type', '=', 'timesheet')]"/>
+                <filter name="filter_vendor_bill" string="Vendor Bill" domain="[('entry_type', '=', 'vendor_bill')]"/>
+                <filter name="filter_inventory" string="Inventory" domain="[('entry_type', '=', 'inventory')]"/>
+                <filter name="filter_manual" string="Manual" domain="[('entry_type', '=', 'manual')]"/>
+                <filter name="filter_ai" string="AI Categorized" domain="[('ai_categorized', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_type" string="Entry Type" context="{'group_by': 'entry_type'}"/>
+                    <filter name="group_project" string="Project" context="{'group_by': 'project_id'}"/>
+                    <filter name="group_cost_code" string="Cost Code" context="{'group_by': 'cost_code_id'}"/>
+                    <filter name="group_date" string="Date" context="{'group_by': 'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="cpg_job_cost_entry_action" model="ir.actions.act_window">
+        <field name="name">Job Cost Entries</field>
+        <field name="res_model">cpg.job.cost.entry</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="cpg_job_cost_entry_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new job cost entry
+            </p>
+        </field>
+    </record>
+</odoo>

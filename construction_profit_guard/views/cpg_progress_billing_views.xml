@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cpg_progress_billing_view_tree" model="ir.ui.view">
+        <field name="name">cpg.progress.billing.view.tree</field>
+        <field name="model">cpg.progress.billing</field>
+        <field name="arch" type="xml">
+            <tree string="Progress Billings">
+                <field name="billing_number"/>
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="period"/>
+                <field name="previous_billed" sum="Total Previous"/>
+                <field name="current_billed" sum="Total Current"/>
+                <field name="total_billed" sum="Grand Total"/>
+                <field name="retention_pct"/>
+                <field name="retention_amount" sum="Total Retention"/>
+                <field name="net_due" sum="Total Net Due"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cpg_progress_billing_view_form" model="ir.ui.view">
+        <field name="name">cpg.progress.billing.view.form</field>
+        <field name="model">cpg.progress.billing</field>
+        <field name="arch" type="xml">
+            <form string="Progress Billing">
+                <header>
+                    <button name="action_submit" type="object" string="Submit" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_approve" type="object" string="Approve" class="oe_highlight" invisible="state != 'submitted'"/>
+                    <button name="action_invoice" type="object" string="Mark Invoiced" class="oe_highlight" invisible="state != 'approved'"/>
+                    <button name="action_draft" type="object" string="Reset to Draft" invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,invoiced"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="e.g. Pay Application #3"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="billing_number"/>
+                            <field name="project_id"/>
+                            <field name="period"/>
+                            <field name="milestone"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="previous_billed"/>
+                            <field name="current_billed"/>
+                            <field name="total_billed"/>
+                            <field name="retention_pct"/>
+                            <field name="retention_amount"/>
+                            <field name="net_due"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Schedule of Values" name="schedule_of_values">
+                            <group>
+                                <field name="schedule_of_values" nolabel="1" colspan="2"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="cpg_progress_billing_view_search" model="ir.ui.view">
+        <field name="name">cpg.progress.billing.view.search</field>
+        <field name="model">cpg.progress.billing</field>
+        <field name="arch" type="xml">
+            <search string="Progress Billings">
+                <field name="name"/>
+                <field name="billing_number"/>
+                <field name="project_id"/>
+                <filter name="filter_draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_submitted" string="Submitted" domain="[('state', '=', 'submitted')]"/>
+                <filter name="filter_approved" string="Approved" domain="[('state', '=', 'approved')]"/>
+                <filter name="filter_invoiced" string="Invoiced" domain="[('state', '=', 'invoiced')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_project" string="Project" context="{'group_by': 'project_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="cpg_progress_billing_action" model="ir.actions.act_window">
+        <field name="name">Progress Billing</field>
+        <field name="res_model">cpg.progress.billing</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="cpg_progress_billing_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new progress billing
+            </p>
+        </field>
+    </record>
+</odoo>

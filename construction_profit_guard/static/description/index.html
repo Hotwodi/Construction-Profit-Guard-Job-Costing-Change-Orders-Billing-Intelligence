@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Construction Profit Guard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+            color: #333;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a5276, #2e86c1);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .header img {
+            max-width: 120px;
+            margin-bottom: 15px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .header p {
+            margin: 10px 0 0;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .section {
+            background: #fff;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        }
+        .section h2 {
+            color: #1a5276;
+            border-bottom: 2px solid #2e86c1;
+            padding-bottom: 8px;
+            margin-top: 0;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .feature {
+            padding: 15px;
+            background: #eaf2f8;
+            border-radius: 6px;
+            border-left: 4px solid #2e86c1;
+        }
+        .feature h3 {
+            margin: 0 0 5px;
+            color: #1a5276;
+            font-size: 15px;
+        }
+        .feature p {
+            margin: 0;
+            font-size: 13px;
+            color: #555;
+        }
+        .price-tag {
+            display: inline-block;
+            background: #27ae60;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        @media (max-width: 600px) {
+            .features { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="logo.png" alt="Construction Profit Guard"/>
+        <h1>Construction Profit Guard</h1>
+        <p>Job Costing, Change Orders &amp; Billing Intelligence</p>
+        <div class="price-tag">$799.99 USD</div>
+    </div>
+    <div class="container">
+        <div class="section">
+            <h2>Overview</h2>
+            <p>Construction Profit Guard is an AI-powered Odoo module designed for construction contractors and project managers. It provides end-to-end job costing, change order management, AIA-style progress billing, subcontractor compliance tracking, and intelligent margin forecasting &mdash; all in one integrated application.</p>
+        </div>
+        <div class="section">
+            <h2>Key Features</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3>Project Management</h3>
+                    <p>Track construction projects with contract values, budgets, committed and incurred costs, completion percentages, and AI margin forecasts.</p>
+                </div>
+                <div class="feature">
+                    <h3>Cost Code Management</h3>
+                    <p>Organize costs by type (labor, material, equipment, subcontractor, overhead) with budget vs. actual variance and AI overrun risk scoring.</p>
+                </div>
+                <div class="feature">
+                    <h3>Job Cost Entries</h3>
+                    <p>Record costs from purchase orders, timesheets, vendor bills, inventory, or manual entries with AI auto-categorization.</p>
+                </div>
+                <div class="feature">
+                    <h3>Change Orders</h3>
+                    <p>Manage the full change order lifecycle from request to invoice, with customer approval tracking and AI detection from daily logs.</p>
+                </div>
+                <div class="feature">
+                    <h3>Daily Site Logs</h3>
+                    <p>Capture weather, labor count, equipment, deliveries, blockers, and safety notes with photo attachments and AI change-order flagging.</p>
+                </div>
+                <div class="feature">
+                    <h3>Progress Billing (AIA)</h3>
+                    <p>Generate AIA-style progress billings with schedule of values, retention calculations, and multi-state approval workflow.</p>
+                </div>
+                <div class="feature">
+                    <h3>Subcontractor Compliance</h3>
+                    <p>Monitor insurance policies, COI expiry dates, and compliance scores with automatic status alerts for expiring or expired documents.</p>
+                </div>
+                <div class="feature">
+                    <h3>Commitment Tracking</h3>
+                    <p>Track purchase orders, subcontracts, and inventory transfers with committed vs. incurred amounts and remaining balances.</p>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>AI Intelligence</h2>
+            <p>The module includes AI-powered features across all core areas: margin forecasting based on completion trajectory, budget overrun risk scoring per cost code, automatic job cost entry categorization, and change order detection from daily site log analysis.</p>
+        </div>
+        <div class="section">
+            <h2>Technical Details</h2>
+            <ul>
+                <li><strong>Odoo Version:</strong> 18.0</li>
+                <li><strong>Category:</strong> Productivity / AI</li>
+                <li><strong>License:</strong> LGPL-3</li>
+                <li><strong>Author:</strong> SoftaiDev</li>
+                <li><strong>Website:</strong> <a href="https://softaidev.pages.dev">https://softaidev.pages.dev</a></li>
+                <li><strong>Dependencies:</strong> base, web, mail</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

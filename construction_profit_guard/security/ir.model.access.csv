@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cpg_project,cpg.project,model_cpg_project,base.group_user,1,1,1,1
+access_cpg_cost_code,cpg.cost.code,model_cpg_cost_code,base.group_user,1,1,1,1
+access_cpg_job_cost_entry,cpg.job.cost.entry,model_cpg_job_cost_entry,base.group_user,1,1,1,1
+access_cpg_change_order,cpg.change.order,model_cpg_change_order,base.group_user,1,1,1,1
+access_cpg_daily_site_log,cpg.daily.site.log,model_cpg_daily_site_log,base.group_user,1,1,1,1
+access_cpg_progress_billing,cpg.progress.billing,model_cpg_progress_billing,base.group_user,1,1,1,1
+access_cpg_subcontractor_compliance,cpg.subcontractor.compliance,model_cpg_subcontractor_compliance,base.group_user,1,1,1,1
+access_cpg_commitment,cpg.commitment,model_cpg_commitment,base.group_user,1,1,1,1

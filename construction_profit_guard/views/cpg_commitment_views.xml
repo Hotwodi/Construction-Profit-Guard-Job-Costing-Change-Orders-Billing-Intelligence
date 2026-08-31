@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cpg_commitment_view_tree" model="ir.ui.view">
+        <field name="name">cpg.commitment.view.tree</field>
+        <field name="model">cpg.commitment</field>
+        <field name="arch" type="xml">
+            <tree string="Commitments">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="cost_code_id"/>
+                <field name="commitment_type"/>
+                <field name="vendor_id"/>
+                <field name="committed_amount" sum="Total Committed"/>
+                <field name="incurred_to_date" sum="Total Incurred"/>
+                <field name="remaining" sum="Total Remaining"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cpg_commitment_view_form" model="ir.ui.view">
+        <field name="name">cpg.commitment.view.form</field>
+        <field name="model">cpg.commitment</field>
+        <field name="arch" type="xml">
+            <form string="Commitment">
+                <header>
+                    <button name="action_set_partial" type="object" string="Set Partial" invisible="state != 'open'"/>
+                    <button name="action_set_completed" type="object" string="Complete" class="oe_highlight" invisible="state == 'completed'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="open,partial,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="e.g. PO-2025-001"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="cost_code_id"/>
+                            <field name="commitment_type"/>
+                            <field name="vendor_id"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="committed_amount"/>
+                            <field name="incurred_to_date"/>
+                            <field name="remaining"/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="cpg_commitment_view_search" model="ir.ui.view">
+        <field name="name">cpg.commitment.view.search</field>
+        <field name="model">cpg.commitment</field>
+        <field name="arch" type="xml">
+            <search string="Commitments">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="cost_code_id"/>
+                <field name="vendor_id"/>
+                <filter name="filter_po" string="Purchase Order" domain="[('commitment_type', '=', 'po')]"/>
+                <filter name="filter_subcontract" string="Subcontract" domain="[('commitment_type', '=', 'subcontract')]"/>
+                <filter name="filter_inventory" string="Inventory Transfer" domain="[('commitment_type', '=', 'inventory_transfer')]"/>
+                <filter name="filter_open" string="Open" domain="[('state', '=', 'open')]"/>
+                <filter name="filter_partial" string="Partial" domain="[('state', '=', 'partial')]"/>
+                <filter name="filter_completed" string="Completed" domain="[('state', '=', 'completed')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_type" string="Type" context="{'group_by': 'commitment_type'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_project" string="Project" context="{'group_by': 'project_id'}"/>
+                    <filter name="group_vendor" string="Vendor" context="{'group_by': 'vendor_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="cpg_commitment_action" model="ir.actions.act_window">
+        <field name="name">Commitments</field>
+        <field name="res_model">cpg.commitment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="cpg_commitment_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new commitment
+            </p>
+        </field>
+    </record>
+</odoo>
