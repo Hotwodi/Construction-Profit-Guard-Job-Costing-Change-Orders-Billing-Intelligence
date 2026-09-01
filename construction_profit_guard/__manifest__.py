@@ -43,5 +43,5 @@ Key Features:
         'views/cpg_menu.xml',
     ],
     'assets': {},
-    'images': ['static/description/icon.png'],
+    'images': ['static/description/cover.png'],
 }
