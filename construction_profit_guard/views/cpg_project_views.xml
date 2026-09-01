@@ -4,7 +4,7 @@
         <field name="name">cpg.project.view.tree</field>
         <field name="model">cpg.project</field>
         <field name="arch" type="xml">
-            <tree string="Construction Projects">
+            <list string="Construction Projects">
                 <field name="code"/>
                 <field name="name"/>
                 <field name="partner_id"/>
@@ -17,7 +17,7 @@
                 <field name="completion_pct" widget="progressbar"/>
                 <field name="ai_margin_forecast" widget="progressbar"/>
                 <field name="state" widget="badge"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -81,7 +81,7 @@
                         </page>
                         <page string="Cost Codes" name="cost_codes">
                             <field name="cost_code_ids">
-                                <tree>
+                                <list>
                                     <field name="code"/>
                                     <field name="name"/>
                                     <field name="cost_type"/>
@@ -89,12 +89,12 @@
                                     <field name="actual_cost" sum="Total Actual"/>
                                     <field name="variance" sum="Total Variance"/>
                                     <field name="ai_overrun_risk" widget="progressbar"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Job Cost Entries" name="job_cost_entries">
                             <field name="job_cost_entry_ids">
-                                <tree>
+                                <list>
                                     <field name="date"/>
                                     <field name="name"/>
                                     <field name="cost_code_id"/>
@@ -102,12 +102,12 @@
                                     <field name="vendor_id"/>
                                     <field name="amount" sum="Total"/>
                                     <field name="ai_categorized"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Change Orders" name="change_orders">
                             <field name="change_order_ids">
-                                <tree>
+                                <list>
                                     <field name="co_number"/>
                                     <field name="name"/>
                                     <field name="estimated_cost" sum="Total Estimated"/>
@@ -115,23 +115,23 @@
                                     <field name="status" widget="badge"/>
                                     <field name="customer_approved"/>
                                     <field name="approved_date"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Daily Site Logs" name="daily_site_logs">
                             <field name="daily_site_log_ids">
-                                <tree>
+                                <list>
                                     <field name="log_date"/>
                                     <field name="name"/>
                                     <field name="weather"/>
                                     <field name="labor_count"/>
                                     <field name="submitted_by"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Progress Billings" name="progress_billings">
                             <field name="progress_billing_ids">
-                                <tree>
+                                <list>
                                     <field name="billing_number"/>
                                     <field name="period"/>
                                     <field name="previous_billed" sum="Total Previous"/>
@@ -139,24 +139,24 @@
                                     <field name="total_billed" sum="Grand Total"/>
                                     <field name="net_due" sum="Total Net Due"/>
                                     <field name="state" widget="badge"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Subcontractor Compliance" name="subcontractor_compliance">
                             <field name="subcontractor_compliance_ids">
-                                <tree>
+                                <list>
                                     <field name="name"/>
                                     <field name="vendor_id"/>
                                     <field name="insurance_type"/>
                                     <field name="expiry_date"/>
                                     <field name="compliance_score" widget="progressbar"/>
                                     <field name="state" widget="badge"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Commitments" name="commitments">
                             <field name="commitment_ids">
-                                <tree>
+                                <list>
                                     <field name="name"/>
                                     <field name="cost_code_id"/>
                                     <field name="commitment_type"/>
@@ -165,7 +165,7 @@
                                     <field name="incurred_to_date" sum="Total Incurred"/>
                                     <field name="remaining" sum="Total Remaining"/>
                                     <field name="state" widget="badge"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
@@ -204,7 +204,7 @@
     <record id="cpg_project_action" model="ir.actions.act_window">
         <field name="name">Projects</field>
         <field name="res_model">cpg.project</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="cpg_project_view_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

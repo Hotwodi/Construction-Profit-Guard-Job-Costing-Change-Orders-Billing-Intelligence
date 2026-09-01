@@ -4,7 +4,7 @@
         <field name="name">cpg.change.order.view.tree</field>
         <field name="model">cpg.change.order</field>
         <field name="arch" type="xml">
-            <tree string="Change Orders">
+            <list string="Change Orders">
                 <field name="co_number"/>
                 <field name="name"/>
                 <field name="project_id"/>
@@ -13,7 +13,7 @@
                 <field name="status" widget="badge"/>
                 <field name="customer_approved"/>
                 <field name="approved_date"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -23,10 +23,10 @@
         <field name="arch" type="xml">
             <form string="Change Order">
                 <header>
-                    <button name="action_set_estimated" type="object" string="Set Estimated" invisible="state != 'requested'"/>
-                    <button name="action_approve" type="object" string="Approve" class="oe_highlight" invisible="state not in ['requested','estimated']"/>
-                    <button name="action_reject" type="object" string="Reject" invisible="state in ['approved','invoiced']"/>
-                    <button name="action_invoice" type="object" string="Mark Invoiced" class="oe_highlight" invisible="state != 'approved'"/>
+                    <button name="action_set_estimated" type="object" string="Set Estimated" invisible="status != 'requested'"/>
+                    <button name="action_approve" type="object" string="Approve" class="oe_highlight" invisible="status not in ['requested','estimated']"/>
+                    <button name="action_reject" type="object" string="Reject" invisible="status in ['approved','invoiced']"/>
+                    <button name="action_invoice" type="object" string="Mark Invoiced" class="oe_highlight" invisible="status != 'approved'"/>
                     <field name="status" widget="statusbar" statusbar_visible="requested,estimated,approved,invoiced"/>
                 </header>
                 <sheet>
@@ -89,7 +89,7 @@
     <record id="cpg_change_order_action" model="ir.actions.act_window">
         <field name="name">Change Orders</field>
         <field name="res_model">cpg.change.order</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="cpg_change_order_view_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

@@ -4,7 +4,7 @@
         <field name="name">cpg.job.cost.entry.view.tree</field>
         <field name="model">cpg.job.cost.entry</field>
         <field name="arch" type="xml">
-            <tree string="Job Cost Entries">
+            <list string="Job Cost Entries">
                 <field name="date"/>
                 <field name="name"/>
                 <field name="project_id"/>
@@ -13,7 +13,7 @@
                 <field name="vendor_id"/>
                 <field name="amount" sum="Total Amount"/>
                 <field name="ai_categorized"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -86,7 +86,7 @@
     <record id="cpg_job_cost_entry_action" model="ir.actions.act_window">
         <field name="name">Job Cost Entries</field>
         <field name="res_model">cpg.job.cost.entry</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="cpg_job_cost_entry_view_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

@@ -4,7 +4,7 @@
         <field name="name">cpg.subcontractor.compliance.view.tree</field>
         <field name="model">cpg.subcontractor.compliance</field>
         <field name="arch" type="xml">
-            <tree string="Subcontractor Compliance">
+            <list string="Subcontractor Compliance">
                 <field name="name"/>
                 <field name="vendor_id"/>
                 <field name="project_id"/>
@@ -15,7 +15,7 @@
                 <field name="co_expiry"/>
                 <field name="compliance_score" widget="progressbar"/>
                 <field name="state" widget="badge"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -84,7 +84,7 @@
     <record id="cpg_subcontractor_compliance_action" model="ir.actions.act_window">
         <field name="name">Subcontractor Compliance</field>
         <field name="res_model">cpg.subcontractor.compliance</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="cpg_subcontractor_compliance_view_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

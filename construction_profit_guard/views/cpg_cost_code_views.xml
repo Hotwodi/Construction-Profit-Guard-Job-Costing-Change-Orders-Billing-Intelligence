@@ -4,7 +4,7 @@
         <field name="name">cpg.cost.code.view.tree</field>
         <field name="model">cpg.cost.code</field>
         <field name="arch" type="xml">
-            <tree string="Cost Codes">
+            <list string="Cost Codes">
                 <field name="code"/>
                 <field name="name"/>
                 <field name="cost_type"/>
@@ -14,7 +14,7 @@
                 <field name="actual_cost" sum="Total Actual"/>
                 <field name="variance" sum="Total Variance"/>
                 <field name="ai_overrun_risk" widget="progressbar"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -50,18 +50,18 @@
                     <notebook>
                         <page string="Job Cost Entries" name="job_cost_entries">
                             <field name="job_cost_entry_ids">
-                                <tree>
+                                <list>
                                     <field name="date"/>
                                     <field name="name"/>
                                     <field name="entry_type"/>
                                     <field name="vendor_id"/>
                                     <field name="amount" sum="Total"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Commitments" name="commitments">
                             <field name="commitment_ids">
-                                <tree>
+                                <list>
                                     <field name="name"/>
                                     <field name="commitment_type"/>
                                     <field name="vendor_id"/>
@@ -69,7 +69,7 @@
                                     <field name="incurred_to_date" sum="Total"/>
                                     <field name="remaining" sum="Total"/>
                                     <field name="state" widget="badge"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
@@ -107,7 +107,7 @@
     <record id="cpg_cost_code_action" model="ir.actions.act_window">
         <field name="name">Cost Codes</field>
         <field name="res_model">cpg.cost.code</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="cpg_cost_code_view_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
